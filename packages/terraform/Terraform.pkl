@@ -1,0 +1,48 @@
+module terraform.Terraform
+
+required_version: String = "~> 1.9.0"
+required_providers: Mapping<String, RequiredProvider> = new {}
+
+/// tfstate（Terraformの状態ファイル）の保存先設定
+backend: (LocalBackend|RemoteBackend|S3Backend)?
+
+abstract class RequiredProvider {
+  source: String
+  version: String
+}
+
+class LocalBackend {
+  hidden path: String
+
+  `local` {
+    ["path"] = path
+  }
+}
+
+class RemoteBackend {
+  hidden hostname: String
+
+  hidden organization: String
+
+  remote {
+    ["hostname"] = hostname
+    ["organization"] = organization
+  }
+}
+
+class S3Backend {
+  hidden bucket: String
+
+  hidden key: String
+
+  hidden region: String
+
+  hidden dynamodb_table: String?
+
+  s3 {
+    ["bucket"] = bucket
+    ["key"] = key
+    ["region"] = region
+    ["dynamodb_table"] = dynamodb_table
+  }
+}

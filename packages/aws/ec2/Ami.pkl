@@ -1,0 +1,13 @@
+module aws.ec2.Ami extends ".../packages/terraform/Data.pkl"
+
+hidden fixed tfType = "aws_ami"
+hidden id: String = lazyLoad("id")
+
+most_recent: Boolean
+owners: Listing<String>?
+filter: Listing<AmiFilter>?
+
+class AmiFilter {
+  name: String
+  values: Listing<String>
+}

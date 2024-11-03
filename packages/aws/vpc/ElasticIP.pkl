@@ -1,0 +1,7 @@
+module aws.vpc.ElasticIP extends ".../packages/terraform/Resource.pkl"
+
+hidden fixed tfType = "aws_eip"
+hidden id: String = lazyLoad("id")
+
+vpc: Boolean
+tags: Mapping<String, String>?

@@ -1,0 +1,16 @@
+module aws.route53.Route53Record extends ".../packages/terraform/Data.pkl"
+
+hidden fixed tfType = "aws_route53_record"
+
+zone_id: String
+name: String
+type: String
+ttl: String
+records: Listing<String>
+alias: Alias?
+
+class Alias {
+  name: String
+  zone_id: String
+  evaluate_target_health: Boolean
+}

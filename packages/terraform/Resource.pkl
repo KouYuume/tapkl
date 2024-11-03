@@ -1,0 +1,6 @@
+abstract module terraform.Resouce
+
+hidden fixed tfType: String
+hidden tfName: String
+
+function lazyLoad(prop: String): String = "${\(tfType).\(tfName).\(prop)}"

@@ -1,0 +1,27 @@
+module aws.vpc.RouteTable extends ".../packages/terraform/Resource.pkl"
+
+import "./props.pkl"
+
+hidden fixed tfType = "aws_route_table"
+hidden fixed id: String = lazyLoad("id")
+
+vpc_id: String
+route: Listing<Route>
+tags: Mapping<String, String>?
+
+class Route {
+  gateway_id: String? = "null"
+  carrier_gateway_id: String? = "null"
+  core_network_arn: String? = "null"
+  destination_prefix_list_id: String? = "null"
+  egress_only_gateway_id: String? = "null"
+  ipv6_cidr_block: String? = "null"
+  local_gateway_id: String? = "null"
+  nat_gateway_id: String? = "null"
+  network_interface_id: String? = "null"
+  transit_gateway_id: String? = "null"
+  vpc_endpoint_id: String? = "null"
+  vpc_peering_connection_id: String? = "null"
+
+  cidr_block: props.CIDRBlock
+}

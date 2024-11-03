@@ -1,0 +1,98 @@
+module terraform.TFConverter
+
+import "./Resource.pkl"
+import "./Data.pkl"
+
+function toTfDynamic(modules: Mapping<String, Module>): Dynamic = new {
+  resource = modules.toMap().values.flatMap((mod) -> mod.toMap().values
+    .filter((x) -> isResource(x))
+    .map((value) -> resourceToTfObject(value)))
+    .reduce((result, tfObject) -> merge(result, tfObject))
+    .toMap().toDynamic()
+  data = modules.toMap().values.flatMap((mod) -> mod.toMap().values
+    .filter((x) -> isData(x))
+    .map((value) -> dataToTfObject(value)))
+    .reduce((result, tfObject) -> merge(result, tfObject))
+    .toMap().toDynamic()
+}
+
+local function isResource(value: unknown): Boolean =
+  value is Resource || value is Listing<Resource> || value is Mapping<String, Resource>
+
+local function  isData(value: unknown): Boolean =
+  value is Data || value is Listing<Data> || value is Mapping<String, Data>
+
+local function resourceToTfObject(
+  value: Resource|Listing<Resource>|Mapping<String, Resource>
+): Mapping<String, Mapping<String, Resource|Data>> =
+  if (value is Listing<Resource> && !value.isEmpty)
+    new Mapping<String, Mapping<String, Resource|Data>> {
+      [value[0].tfType] = new Mapping<String, Resource|Data> {
+        for (resource in value) {
+          [resource.tfName] = resource
+        }
+      }
+    }
+  else if (value is Mapping<String, Resource>)
+    new Mapping<String, Mapping<String, Resource|Data>> {
+      [value.toMap().values.first.tfType] = new Mapping<String, Resource|Data> {
+        for (_, resource in value) {
+          [resource.tfName] = resource
+        }
+      }
+    }
+  else
+    let (resource = value as Resource)
+      new Mapping<String, Mapping<String, Resource|Data>> {
+        [resource.tfType] = new Mapping<String, Resource|Data> {
+          [resource.tfName] = resource
+        }
+      }
+
+local function dataToTfObject(
+  value: Data|Listing<Data>|Mapping<String, Data>
+): Mapping<String, Mapping<String, Resource|Data>> =
+  if (value is Listing<Data> && !value.isEmpty)
+    new Mapping<String, Mapping<String, Resource|Data>> {
+      [value[0].tfType] = new Mapping<String, Resource|Data> {
+        for (data in value) {
+          [data.tfName] = data
+        }
+      }
+    }
+  else if (value is Mapping<String, Data>)
+    new Mapping<String, Mapping<String, Resource|Data>> {
+      [value.toMap().values.first.tfType] = new Mapping<String, Resource|Data> {
+        for (_, data in value) {
+          [data.tfName] = data
+        }
+      }
+    }
+  else
+    let (data = value as Data)
+      new Mapping<String, Mapping<String, Resource|Data>> {
+        [data.tfType] = new Mapping<String, Resource|Data> {
+          [data.tfName] = data
+        }
+      }
+
+local function merge(
+  result: Mapping<String, Mapping<String, Resource|Data>>,
+  tfMaps: Mapping<String, Mapping<String, Resource|Data>>
+): Mapping<String, Mapping<String, Resource|Data>> =
+  if (result.containsKey(tfMaps.keys.first))
+    (result) {
+      [tfMaps.keys.first] = (result[tfMaps.keys.first]) {
+        for (tfObject in tfMaps[tfMaps.keys.first]) {
+          [tfObject.tfName] = tfObject
+        }
+      }
+    }
+  else
+    (result) {
+      [tfMaps.keys.first] {
+        for (tfObject in tfMaps[tfMaps.keys.first]) {
+          [tfObject.tfName] = tfObject
+        }
+      }
+    }

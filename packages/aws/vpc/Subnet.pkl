@@ -1,0 +1,13 @@
+module aws.vpc.Subnet extends ".../packages/terraform/Resource.pkl"
+
+import "./props.pkl"
+
+hidden fixed tfType = "aws_subnet"
+hidden fixed id: String = lazyLoad("id")
+
+vpc_id: String
+cidr_block: props.CIDRBlock
+availability_zone: String
+/// サブネットで起動したインスタンスにパブリックIPアドレスを自動的に割り当てる
+map_public_ip_on_launch: Boolean = false
+tags: Mapping<String, String>?

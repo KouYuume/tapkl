@@ -1,0 +1,15 @@
+module aws
+
+import ".../terraform/terraform.pkl"
+
+class Provider {
+  region: Region = "ap-northeast-1"
+  profile: String
+}
+
+class RequiredProvider extends terraform.RequiredProvider {
+  source = "hashicorp/aws"
+}
+
+typealias Region = "ap-northeast-1"|""
+

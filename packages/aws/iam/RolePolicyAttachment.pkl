@@ -1,0 +1,6 @@
+module aws.iam.RolePolicyAttachment extends ".../packages/terraform/Resource.pkl"
+
+hidden fixed tfType = "aws_iam_role_policy_attachment"
+
+role: String
+policy_arn: String

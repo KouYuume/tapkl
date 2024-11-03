@@ -1,0 +1,7 @@
+module aws.rds.DbSubnetGroup extends ".../packages/terraform/Resource.pkl"
+
+hidden fixed tfType = "aws_db_subnet_group"
+
+name: String
+subnet_ids: Listing<String>
+tags: Mapping<String, String>?

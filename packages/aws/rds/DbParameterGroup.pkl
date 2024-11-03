@@ -1,0 +1,15 @@
+module aws.rds.DbParameterGroup extends ".../packages/terraform/Resource.pkl"
+
+hidden fixed tfType = "aws_rds_db_parameter_group"
+
+name: String
+family: String
+description: String
+parameter: Listing<Parameter> = new {}
+tags: Mapping<String, String>?
+
+class Parameter {
+  name: String
+  value: String
+  apply_method: String?
+}

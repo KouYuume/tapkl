@@ -1,0 +1,17 @@
+module aws.rds.Cluster extends ".../packages/terraform/Resource.pkl"
+
+hidden fixed tfType = "aws_rds_cluster"
+
+cluster_identifier: String
+database_name: String
+master_username: String
+master_password: String
+port: Int
+apply_immediately: Boolean = false
+skip_final_snapshot: Boolean = true
+engine: String
+engine_version: String
+vpc_security_group_ids: Listing<String>
+db_subnet_group_name: String
+db_cluster_parameter_group_name: String
+tags: Mapping<String, String>?

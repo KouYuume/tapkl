@@ -1,0 +1,14 @@
+module aws.ec2.LoadBalancerListener extends ".../packages/terraform/Resource.pkl"
+
+hidden fixed tfType = "aws_lb_listener"
+
+load_balancer_arn: String
+port: String
+protocol: String
+certificate_arn: String?
+default_action: DefaultAction
+
+class DefaultAction {
+    type: String
+    target_group_arn: String
+}

@@ -1,0 +1,7 @@
+module aws.vpc.SecurityGroup extends ".../packages/terraform/Resource.pkl"
+
+hidden fixed tfType = "aws_security_group"
+hidden fixed id: String = lazyLoad("id")
+
+vpc_id: String
+tags: Mapping<String, String>?

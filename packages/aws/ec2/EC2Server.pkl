@@ -1,0 +1,22 @@
+module aws.ec2.EC2Server extends ".../packages/terraform/Resource.pkl"
+
+hidden fixed tfType = "aws_instance"
+
+ami: String = "ami-0ef29ab52ff72213b"
+instance_type: String = "t2.micro"
+key_name: String?
+iam_instance_profile: String?
+subnet_id: String?
+vpc_security_group_ids: Listing<String>?
+root_block_device: Mapping<String, String>?
+user_data: String?
+tags: Mapping<String, String>?
+
+class RootBlockDevice {
+  volume_type: VolumeType = "gp2"
+  volume_size: Int = 8
+  delete_on_termination: Boolean = true
+}
+
+typealias InstanceType = "t2.micro"|""
+typealias VolumeType = "gp2"|"io1"|"st1"|"sc1"|"standard"

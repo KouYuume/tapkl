@@ -1,0 +1,6 @@
+module aws.vpc.RouteTableAssociation extends ".../packages/terraform/Resource.pkl"
+
+hidden fixed tfType = "aws_route_table_association"
+
+subnet_id: String
+route_table_id: String

@@ -1,0 +1,8 @@
+module aws.vpc.NATGateway extends ".../packages/terraform/Resource.pkl"
+
+hidden fixed tfType = "aws_nat_gateway"
+hidden fixed id: String = lazyLoad("id")
+
+allocation_id: String
+subnet_id: String
+tags: Mapping<String, String>?

@@ -1,0 +1,12 @@
+module aws.route53.Route53Zone extends ".../packages/terraform/Data.pkl"
+
+hidden fixed tfType = "aws_route53_zone"
+
+name: String
+vpc: Vpc?
+tags: Mapping<String, String>?
+
+class Vpc {
+  vpc_id: String
+  vpc_region: String
+}

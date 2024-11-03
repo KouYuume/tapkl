@@ -1,0 +1,14 @@
+module aws.rds.ClusterInstance extends ".../packages/terraform/Resource.pkl"
+
+hidden fixed tfType = "aws_rds_cluster_instance"
+
+count: Int?
+identifier: String
+cluster_identifier: String
+instance_class: String
+apply_immediately: Boolean = false
+engine: String
+engine_version: String
+db_subnet_group_name: String
+db_parameter_group_name: String
+tags: Mapping<String, String>?

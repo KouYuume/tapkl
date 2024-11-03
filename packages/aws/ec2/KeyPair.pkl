@@ -1,0 +1,7 @@
+module aws.ec2.KeyPair extends ".../packages/terraform/Resource.pkl"
+
+hidden fixed tfType = "aws_key_pair"
+hidden id: String = lazyLoad("id")
+
+key_name: String
+public_key: String

@@ -1,0 +1,18 @@
+module aws.ec2.LoadBalancer extends ".../packages/terraform/Resource.pkl"
+
+hidden fixed tfType = "aws_lb"
+
+name: String
+load_balancer_type: String = "application"
+internal: Boolean = false
+security_groups: Listing<String>?
+subnets: Listing<String>?
+enable_deletion_protection: Boolean = false
+access_logs: AccessLogs?
+tags: Mapping<String, String>?
+
+class AccessLogs {
+  bucket: String
+  prefix: String
+  enabled: Boolean
+}

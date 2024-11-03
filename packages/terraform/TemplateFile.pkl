@@ -1,0 +1,6 @@
+module terraform.TemplateFile extends "Data.pkl"
+
+hidden fixed tfType: String = "template_file"
+hidden rendered = lazyLoad("rendered")
+
+template: String

@@ -1,0 +1,9 @@
+amends "pkl:Project"
+
+package {
+  name = "tapkl"
+  baseUri = "package://yuumekou.net/tapkl"
+  version = "0.1.0"
+  packageZipUrl = "https://github.com/KouYuume/tapkl/releases/download/\(name)@\(version).zip"
+  license = "Apache-2.0"
+}

@@ -1,0 +1,9 @@
+module aws.vpc.VPC extends ".../packages/terraform/Resource.pkl"
+
+import "./props.pkl"
+
+hidden fixed tfType = "aws_vpc"
+hidden fixed id: String = lazyLoad("id")
+
+cidr_block: props.CIDRBlock
+tags: Mapping<String, String>?

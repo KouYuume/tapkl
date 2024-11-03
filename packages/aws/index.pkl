@@ -1,0 +1,3 @@
+module aws.vpc.index
+
+vpc = import* "vpc/*.pkl"

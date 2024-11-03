@@ -1,0 +1,22 @@
+module aws.vpc.SecurityGroupEgressRule extends ".../packages/terraform/Resource.pkl"
+
+import "./props.pkl"
+
+hidden fixed tfType = "aws_vpc_security_group_egress_rule"
+
+security_group_id: String
+from_port: Number(isBetween(0, 65535))?
+to_port: Number(isBetween(0, 65535))?
+ip_protocol: SecurityGroupRuleProtocol
+cidr_ipv4: props.CIDRBlock
+tags: Mapping<String, String>?
+
+typealias SecurityGroupRuleProtocol = "tcp" | "udp" | "icmp" | "icmpv6" | all | String(
+    let (value = this.toIntOrNull())
+      if (value == null)
+        false
+      else
+        value >= 0 && value <= 255
+  )
+
+typealias all = "-1"

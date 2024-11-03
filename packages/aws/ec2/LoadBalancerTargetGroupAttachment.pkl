@@ -1,0 +1,7 @@
+module aws.ec2.LoadBalancerTargetGroupAttachment extends ".../packages/terraform/Resource.pkl"
+
+hidden fixed tfType = "aws_lb_target_group_attachment"
+
+target_group_arn: String
+target_id: String
+port: Number

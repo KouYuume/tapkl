@@ -1,0 +1,76 @@
+module aws.s3.S3Bucket extends ".../packages/terraform/Resource.pkl"
+
+hidden fixed tfType = "aws_s3"
+
+bucket: String
+acl: String
+force_destroy: Boolean = false
+cors_rule: Listing<CorsRule>?
+versioning: Versioning?
+lifecycle_rule: LifecycleRule?
+policy: String?
+server_side_encryption_configuration: ServerSideEncryptionConfiguration?
+
+tags: Mapping<String, String>?
+
+class CorsRule {
+  allowed_origins: Listing<String> = new {
+    "*"
+  }
+  allowed_methods: Listing<String> = new {
+    "GET"
+  }
+  allowed_headers: Listing<String> = new {
+    "*"
+  }
+  expose_headers: Listing<String>?
+  max_age_seconds: Int = 3000
+}
+
+class Versioning {
+  enabled: Boolean
+}
+
+class ServerSideEncryptionConfiguration {
+  rule: Listing<ServerSideEncryptionRule>
+}
+
+class ServerSideEncryptionRule {
+  apply_server_side_encryption_by_default: ServerSideEncryptionByDefault
+}
+
+class ServerSideEncryptionByDefault {
+  sse_algorithm: String
+  kms_master_key_id: String?
+}
+
+class LifecycleRule {
+  id: String
+  prefix: String
+  enabled: Boolean
+  expiration: Expiration?
+  noncurrent_version_expiration: NoncurrentVersionExpiration?
+  transition: Listing<Transition>?
+  noncurrent_version_transition: Listing<NoncurrentVersionTransition>?
+}
+
+class Expiration {
+  days: Int?
+  date: String?
+  expired_object_delete_marker: Boolean?
+}
+
+class NoncurrentVersionExpiration {
+  days: Int
+}
+
+class Transition {
+  days: Int?
+  date: String?
+  storage_class: String
+}
+
+class NoncurrentVersionTransition {
+  days: Int
+  storage_class: String
+}

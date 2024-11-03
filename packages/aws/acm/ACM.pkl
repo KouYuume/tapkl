@@ -1,0 +1,7 @@
+module aws.acm.ACM extends ".../packages/terraform/Resource.pkl"
+
+hidden fixed tfType = "aws_acm_certificate"
+
+domain_name: String
+validation_method: String
+tags: Mapping<String, String>?

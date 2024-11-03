@@ -1,0 +1,41 @@
+module aws.iam.IAM extends ".../packages/terraform/Resource.pkl"
+
+hidden fixed tfType = "aws_iam_role"
+
+name: String
+path: String = "/"
+assume_role_policy: String
+
+class AssumeRolePolicy {
+  fixed version: String = "2012-10-17"
+  statement: Listing<Statement>
+
+  function render(): String = """
+    {
+      "Version": "\(version)",
+      "Statement": [
+        \(statement.toList().map((s) -> s.render()).join(",\n"))
+      ]
+    }
+    """
+}
+
+class Statement {
+  effect: String
+  principal: Principal
+  action: String
+
+  function render(): String = """
+    {
+      "Effect": "\(effect)",
+      "Principal": {
+        "Service": "\(principal.service)"
+      },
+      "Action": "\(action)"
+    }
+    """
+}
+
+class Principal {
+  service: String
+}

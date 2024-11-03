@@ -1,0 +1,7 @@
+module terraform.File
+
+hidden fixed tfType: String = "locals"
+hidden tfName: String
+hidden path: String
+
+function render(): String = "${file(\"\(path)\")}"

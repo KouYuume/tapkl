@@ -1,0 +1,8 @@
+module aws.ec2.LoadBalancerTargetGroup extends ".../packages/terraform/Resource.pkl"
+
+hidden fixed tfType = "aws_lb_target_group"
+
+name: String
+vpc_id: String
+port: Number
+protocol: String

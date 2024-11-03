@@ -1,0 +1,6 @@
+module aws.acm.ACMValidation extends ".../packages/terraform/Resource.pkl"
+
+hidden fixed tfType = "aws_acm_certificate_validation"
+
+certificate_arn: String
+validation_record_fqdns: Listing<String>
