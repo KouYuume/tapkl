@@ -21,8 +21,8 @@ vpc: VPC = new {
 docker compose run --rm terraform init
 
 # pkl eval && terraform apply
-sh build.sh
+sh apply.sh
 
 # terraform destroy
-sh destroy.sh
+docker compose run --rm terraform destroy
 ```
